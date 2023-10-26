@@ -1,0 +1,19 @@
+{
+  "name": "acroml.js",
+  "version": "1.2.5",
+  "description": "Acro Multi-Language Suite",
+  "main": "src/index.mjs",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "locale","localize","globalization","translation",
+    "internationalization","multi language",
+    "多语言","本地化","全球化","国际化","翻译"],
+  "author": "Acroprise inc.",
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mustapha-wang/acroml.git"
+  }
+}

@@ -1,0 +1,129 @@
+<html>
+  <header>
+  </header>
+  <head>
+    <script src="/js/jquery-1.11.1/jquery-1.11.1.min.js"></script>
+    <!-- <script src="/js/vue-3.3.4/dist/vue.global.js"></script> -->
+    <!-- 让浏览器可以下载.vue文件 -->
+    <script src="/js/vue3-sfc-loader-0.8.4/dist/vue3-sfc-loader.js"></script>
+    <script src="/js/babel-7.17.11/babel.min.js"></script>
+    <script type="importmap">
+      {
+        "imports": {
+          "vue": "/js/vue-3.3.4/dist/vue.esm-browser.prod.js",
+          "easyui":"/js/v3-easyui-3.0.14/dist/v3-easyui.js",
+          "acroml":"/js/acroml/src/index.mjs"
+        }
+      }
+    </script>
+    <!-- <link rel="stylesheet" type="text/css" href="/css/main.css"/> -->
+    <style>
+      @import '/js/v3-easyui-3.0.14/dist/themes/default/easyui.css';
+      @import '/js/v3-easyui-3.0.14/dist/themes/icon.css';
+      @import '/js/v3-easyui-3.0.14/dist/themes/color.css';
+      @import '/js/v3-easyui-3.0.14/dist/themes/vue.css';
+    </style>
+    <link rel="stylesheet" type="text/css" href="/vue/main.css"/>
+  </head>
+  <body>
+    <div>
+      <img src="/img/acroML.gif"/>
+    </div>
+    <div id="app"></div>
+    <script type="module">
+      import AcroML from 'acroml';
+      window.AcroML=AcroML;
+      console.log(AcroML);
+      import * as Vue from 'vue';
+      // import {defineComponent, Fragment} from 'vue';
+      // import {defineComponent} from 'vue';
+      // console.log(defineComponent);
+      // console.log(Fragment);
+      //console.log(Vue);
+      //window.Vue=Vue;
+      //console.log(window);
+      import EasyUI from 'easyui';
+      console.log(EasyUI);
+      import main from './com.main.js';
+
+      let app;
+      function buildDOM(){
+        console.log('buildDOM...');
+        if (app) app.unmount();
+        app=Vue.createApp(main);
+        app.use(EasyUI);
+        //app.component('AcroML',AcroML);
+        app.config.globalProperties.AcroML=AcroML;
+        app.config.globalProperties.LCID=Vue.ref(AcroML.Engine.instance.LCID);
+        app.config.globalProperties.t=function(DDKey){
+          //使用一下app.config.globalProperties.LCID.value，让vue认为此函数受LCID影响
+          //删除这行后切换LCID无自动翻译效果
+          let LCID=app.config.globalProperties.LCID.value;
+          return AcroML.t(DDKey);
+        }
+        window.t=app.config.globalProperties.t;
+        //console.log(app); 
+        app.mount('#app');
+      }
+      let requireMap={
+
+      }
+      let caches={};
+      window.acroml_require=function(path,ops){
+        let p=requireMap[path];
+        if (p) path=p;
+        let m=caches[path];
+        if (!m){
+            var module={exports:{}}
+            var exports = module.exports;
+            $.ajax({
+                url:path,
+                async:false,
+                dataType:'text',
+                success:function(data){
+                    //console.log(data);
+                    if (ops && ops.esVersion>5){
+                      data = Babel.transform(data,{presets: ['es2015']}).code;
+                    }
+                    let r=eval(data);
+                    //console.log(module);
+                }
+            });
+            m=module.exports;
+            caches[path]=m;
+        }
+        //console.log(path,m);
+        return m.default||m;
+      }
+      AcroML.Engine.onSwitchLanguage=function(){
+        //如果重建DOM，只会回到最初的状态，tab全部消失
+        //buildDOM();
+        //这个赋值会重新触发t函数
+        app.config.globalProperties.LCID.value=AcroML.Engine.instance.LCID;
+        AcroML.easyUI.loadLocaleDD('/js/v3-easyui-3.0.14/dist/locale/')
+        .finally(function(easyUIDD){
+          window.Locale.use(easyUIDD);
+          //console.log(easyUIDD);
+          //console.log(window.$messager);
+          //$messager是全局元件，easyui加载时就翻译了，切换语言后必须重新翻译
+          app.config.globalProperties.$messager.ok=window.Locale.t("Messager.ok", "Ok");//app.config.globalProperties.t('OK');
+          app.config.globalProperties.$messager.cancel=window.Locale.t("Messager.cancel", "Cancel");//app.config.globalProperties.t('Cancel');
+          //EasyUI的全局ValidateRules不用翻译
+          //console.log(window.ValidateRules);
+        });
+      }
+      function start(){ 
+        AcroML.easyUI.loadLocaleDD('/js/v3-easyui-3.0.14/dist/locale/')
+        .then(function(easyUIDD){
+          window.Locale.use(easyUIDD);
+        })
+        .finally(buildDOM);
+      }
+      //*.plaintable.json格式最小
+      AcroML.Engine.init({
+        engineClass:AcroML.BrowserEngine,
+        ddFile:'/dd/Unicode.plaintable.json'
+      }).then(start);
+    </script>
+  </body>
+</html>

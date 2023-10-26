@@ -1,0 +1,40 @@
+<script type="importmap">
+    {
+      "imports": {
+        "acroml-core": "/js/acroml/src/index.core.mjs",
+        "acroml-dd-csvtext": "/js/acroml/src/dd/acroML.DD.CSVText.mjs",
+        "acroml-engine-browser":"/js/acroml/src/engine/acroML.Engine.Browser.mjs",
+        "acroml-html":"/js/acroml/src/html/html.mjs",
+        "acroml-selector-html":"/js/acroml/src/selector/acroML.Selector.HTML.mjs"
+      }
+    }
+</script>
+
+<script type="module">
+    import AcroML from "acroml-core";
+    import AcroMLCSVTextDD from "acroml-dd-csvtext";
+    import AcroMLBrowserEngine from "acroml-engine-browser";
+    import {htmlTranslator} from "acroml-html";
+    import acroBuildHTMLSelector from "acroml-selector-html";
+    console.log(AcroML);
+    AcroML.Engine.onSwitchLanguage=function(){
+        //window.location.reload();
+        console.log(AcroMLBrowserEngine.LCID);
+        htmlTranslator.translatePage(AcroML.Engine.instance.dd,AcroML.Engine.instance.LCID);
+    }
+    //console.log(acroML);
+    function start(){
+        acroBuildHTMLSelector($('#languageSelector'));
+        AcroML.Engine.onSwitchLanguage();
+    }
+    //jquery的$()函数不能加asycn函数
+    document.onready=async function(){
+        //dom构建后，如何同步获取构建dd，画面不闪烁?
+        console.log('build dd...');
+        await AcroML.Engine.init({
+            engineClass:AcroMLBrowserEngine,
+            ddFile:'/dd/Unicode.csv.txt'
+        });
+        start();
+    }
+</script>

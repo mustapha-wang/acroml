@@ -1,0 +1,72 @@
+{
+  "displayValueColumns": [
+    {
+      "lng": {
+        "LCID": 1028,
+        "LanguageName_Abbreviate": "CHT",
+        "LanguageName_English": "Chinese (Traditional)",
+        "LanguageName_Chinese": "中文(繁体，中国台湾)",
+        "LanguageName_Native": "中文(繁體)",
+        "RegionID": 886,
+        "RegionName_Abbreviate": "TWN",
+        "RegionName_English": "Taiwan,China",
+        "RegionName_Chinese": "中国台湾",
+        "RegionName_Native": "中國台灣",
+        "CodePage_ANSI": 950,
+        "CodePage_OEM": 950,
+        "CodePage_MAC": 10002,
+        "Google_Abbreviate": "zh-tw",
+        "BaiDu_Abbreviate": "cht",
+        "Tag": "zh-TW"
+      },
+      "SeqNos": [
+        "0"
+      ]
+    },
+    {
+      "lng": {
+        "LCID": 2052,
+        "LanguageName_Abbreviate": "CHS",
+        "LanguageName_English": "Chinese (Simplified)",
+        "LanguageName_Chinese": "中文(简体，中国)",
+        "LanguageName_Native": "中文(简体)",
+        "RegionID": 86,
+        "RegionName_Abbreviate": "CHN",
+        "RegionName_English": "People`s Republic of China",
+        "RegionName_Chinese": "中华人民共和国",
+        "RegionName_Native": "中华人民共和国",
+        "CodePage_ANSI": 936,
+        "CodePage_OEM": 936,
+        "CodePage_MAC": 10008,
+        "Google_Abbreviate": "zh-cn",
+        "BaiDu_Abbreviate": "zh",
+        "Tag": "zh-CN"
+      },
+      "SeqNos": [
+        "0"
+      ]
+    }
+  ],
+  "rows": [
+    {
+      "DDKey": "Sex",
+      "SortNumber": "1",
+      "2052-0": "性别",
+      "1028-0": "性別"
+    },
+    {
+      "DDKey": "Name",
+      "SortNumber": "1",
+      "2052-0": "姓名",
+      "1028-0": "姓名",
+      "children": [
+        {
+          "DDKey": "Age",
+          "SortNumber": "1",
+          "2052-0": "年龄",
+          "1028-0": "年齡"
+        }
+      ]
+    }
+  ]
+}

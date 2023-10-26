@@ -1,0 +1,16 @@
+{
+  "scripts": {
+    "pack-core-umd":"webpack --config umd/_webpack.config-core-umd.js",
+    "pack-addon-umd":"webpack --config umd/_webpack.config-addon-umd.js",
+    "pack-core-umd-min":"webpack --config umd/_webpack.config.core-umd-min.js",
+    "pack-addon-umd-min":"webpack --config umd/_webpack.config.addon-umd-min.js",
+
+    "pack-core-global":"webpack --config global/_webpack.config-core-global.js",
+    "pack-addon-global":"webpack --config global/_webpack.config-addon-global.js",
+    "pack-core-global-min":"webpack --config global/_webpack.config.core-global-min.js",
+    "pack-addon-global-min":"webpack --config global/_webpack.config.addon-global-min.js",
+
+    "pack-core-esm":"webpack --config esm/_webpack.config.core-esm.js",
+    "pack-core-esm-min":"webpack --config esm/_webpack.config.core-esm-min.js"
+  }
+}

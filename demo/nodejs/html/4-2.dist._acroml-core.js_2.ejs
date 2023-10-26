@@ -1,0 +1,64 @@
+<script>
+    let requireMap={
+        'acroml-core':"/js/acroml/dist/umd/acroml-core.js",
+        'acroml-csvtext':"/js/acroml/dist/umd/acroml-csvtext.js",
+        'acroml-engine-browser':"/js/acroml/dist/umd/acroml-engine-browser.js",
+        "acroml-dd-csvtext":"/js/acroml/dist/umd/acroml-dd-csvtext.js",
+        "acroml-html":"/js/acroml/dist/umd/acroml-html.js",
+        "acroml-selector-html":"/js/acroml/dist/umd/acroml-selector-html.js"
+    }
+    let caches={};
+    function _require(path){
+        let p=requireMap[path];
+        if (p) path=p;
+        let m=caches[path];
+        if (!m){
+            var module={exports:{}}
+            var exports = module.exports;
+            $.ajax({
+                url:path,
+                async:false,
+                dataType:'text',
+                success:function(data){
+                    //console.log(data);
+                    let r=eval(data);
+                    //console.log(module);
+                }
+            });
+            m=module.exports;
+            caches[path]=m;
+        }
+        //console.log(path,m);
+        return m.default||m;
+    }
+    window.acroml_require=_require;
+    //console.log(acroml_require);
+    let AcroML=_require("acroml-core");
+    console.log(AcroML);
+    let BrowserEngine=_require("acroml-engine-browser");
+    //console.log(BrowserEngine);
+    //_require("acroml-csvtext");
+    _require("acroml-dd-csvtext");
+    let {htmlTranslator}=_require("acroml-html");
+    let buildHTMLSelector=_require("acroml-selector-html");
+    //console.log(buildHTMLSelector);
+    
+    AcroML.Engine.onSwitchLanguage=function(){
+        console.log(AcroML.Engine.instance.LCID);
+        htmlTranslator.translatePage(AcroML.Engine.instance.dd,AcroML.Engine.instance.LCID);
+    }
+    function start(){
+        buildHTMLSelector($('#languageSelector'));
+        AcroML.Engine.onSwitchLanguage();
+    }
+    //jquery的$()函数不能加asycn函数
+    document.onready=async function(){
+        //dom构建后，如何同步获取构建dd，画面不闪烁?
+        console.log('build dd...');
+        await AcroML.Engine.init({
+            engineClass:BrowserEngine,
+            ddFile:'/dd/Unicode.csv.txt'
+        });
+        start();
+    }
+</script>

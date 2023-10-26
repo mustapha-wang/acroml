@@ -1,0 +1,45 @@
+<html>
+  <header>
+  </header>
+  <head>
+    <!-- <script src="/js/jquery-1.11.1/jquery-1.11.1.min.js"></script> -->
+    <script src="../demo/react-app/public/js/acroMulti/acroMulti.Utils.js"></script>
+  </head>
+  <body>
+    <span>测试字符编码，特别是4字节的特殊unicode码，如麻将牌：🀢🀣🀤🀥🀦🀧🀨🀩</span>
+    <script>
+      let s='🀢';
+      let index=0;
+      for(let c of s){
+        console.log(index,c,c.codePointAt(0));//127010,0x1F022,unicode的码值
+        index++;
+      }
+      
+      index=0;
+      for(let i=0;i<s.length;i++){
+        let c1=s.charCodeAt(i);//55356
+        let c2=s.codePointAt(i);//127010,0x1F022,unicode的码值
+        console.log(index,c1,c2);
+        index++;
+      }
+
+      let acroMultiUtils=acroMulti.utils;
+      try{
+          let buf1=acroMultiUtils.str_utf8(s);
+          console.log(buf1,Array.isArray(buf1));
+      }
+      catch(e){
+          console.log(e);
+      }
+      let buf2=acroMultiUtils.str_utf8_2(s);
+      console.log(buf2,Array.isArray(buf2));
+      let s2=acroMultiUtils.utf8_str_2(buf2);
+      console.log(s2==s,s2);
+
+      let buf3=acroMultiUtils.str_utf8_3(s);
+      console.log(buf3,Array.isArray(buf3));
+      let s3=acroMultiUtils.utf8_str_3(buf3);
+      console.log(s3==s,s3);
+    </script>
+  </body>
+</html>

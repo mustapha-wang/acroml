@@ -1,0 +1,46 @@
+<script type="importmap">
+    {
+      "imports": {
+        "acroml-core": "/js/acroml/src/index.core.mjs",
+        "acroml-dd-csvtext": "/js/acroml/src/dd/acroML.DD.CSVText.mjs",
+        "acroml-engine-browser":"/js/acroml/src/engine/acroML.Engine.Browser.mjs",
+        "acroml-html":"/js/acroml/src/html/html.mjs",
+        "acroml-selector-html":"/js/acroml/src/selector/acroML.Selector.HTML.mjs"
+      }
+    }
+</script>
+<script>
+    async function main(){
+        async function myImport(m){
+            let r=await import(m);
+            return r.default||r;
+        }
+        let AcroML=await myImport("acroml-core");
+        let AcroMLCSVTextDD=await myImport("acroml-dd-csvtext");
+        let AcroMLBrowserEngine=await myImport("acroml-engine-browser");
+        let {htmlTranslator}=await myImport("acroml-html");
+        let acroBuildHTMLSelector=await myImport("acroml-selector-html");
+        console.log(AcroML);
+        AcroML.Engine.onSwitchLanguage=function(){
+            //window.location.reload();
+            console.log(AcroML.Engine.instance.LCID);
+            htmlTranslator.translatePage(AcroML.Engine.instance.dd,AcroML.Engine.instance.LCID);
+        }
+        //console.log(acroML);
+        function start(){
+            acroBuildHTMLSelector($('#languageSelector'));
+            AcroML.Engine.onSwitchLanguage();
+        }
+        //jquery的$()函数不能加asycn函数
+        //document.onready=async function(){
+            //dom构建后，如何同步获取构建dd，画面不闪烁?
+            console.log('build dd...');
+            await AcroML.Engine.init({
+                engineClass:AcroMLBrowserEngine,
+                ddFile:'/dd/Unicode.csv.txt'
+            });
+            start();
+        //}
+    }
+    main();
+</script>

@@ -1,0 +1,16 @@
+<script type="importmap">
+    {
+      "imports": {
+        "vue": "/js/vue-3.3.4/dist/vue.esm-browser.js"
+      }
+    }
+</script>
+
+<div id="app"></div>
+
+<script type="module">
+  import { createApp } from 'vue'
+  import MyComponent from './com.demo4.js'
+
+  createApp(MyComponent).mount('#app')
+</script>

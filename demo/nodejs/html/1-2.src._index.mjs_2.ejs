@@ -1,0 +1,38 @@
+<script type="importmap">
+    {
+      "imports": {
+        "acroml": "/js/acroml/src/index.mjs",
+        "acroml_2": "/js/acroml/dist/esm/acroml.mjs",
+        "acroml_3": "/js/acroml/dist/esm/min/acroml.mjs"
+      }
+    }
+</script>
+<script>
+    async function main(){
+        let AcroML=await import("acroml_2");
+        //AcroML=AcroML.default;
+        console.log(AcroML);
+        AcroML.Engine.onSwitchLanguage=function(){
+            //window.location.reload();
+            console.log(AcroML.Engine.instance.LCID);
+            AcroML.htmlTranslator.translatePage(
+                AcroML.Engine.instance.dd,AcroML.Engine.instance.LCID);
+        }
+        //console.log(acroML);
+        function start(){
+            AcroML.buildHTMLSelector($('#languageSelector'));
+            AcroML.Engine.onSwitchLanguage();
+        }
+        //jquery的$()函数不能加asycn函数
+        //document.onready=async function(){
+            //dom构建后，如何同步获取构建dd，画面不闪烁?
+            console.log('build dd...');
+            await AcroML.Engine.init({
+                engineClass:AcroML.BrowserEngine,
+                ddFile:'/dd/Unicode.csv.txt'
+            });
+            start();
+        //}
+    }
+    main();
+</script>

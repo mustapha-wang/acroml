@@ -1,0 +1,7 @@
+<script src="/js/petite-vue-0.4.1/dist/petite-vue.umd.js" defer init></script>
+
+<!-- anywhere on the page -->
+<div v-scope="{ count: 0 }">
+  {{ count }}
+  <button @click="count++">inc</button>
+</div>

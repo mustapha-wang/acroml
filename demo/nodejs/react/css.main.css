@@ -1,0 +1,16 @@
+.layout-header {
+    background-color:bisque;
+}
+.layout-left {
+    width:200px;
+    float:left;
+    background-color:aquamarine;
+}
+
+.layout-right {
+    float:left;
+    overflow: hidden;
+}
+.layout-footer {
+    background-color:brown;
+}

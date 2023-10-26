@@ -1,0 +1,170 @@
+<html>
+    <header>
+    </header>
+    <head>
+        <title>&View</title>
+        <meta charset="utf-8"></meta>
+        <script src="/js/jquery-1.11.1/jquery-1.11.1.min.js"></script>
+    </head>
+    <body>
+        <span>code template:</span>
+        <select onchange="onCodeTemplateChanged(this)">
+        <% 
+            console.log(pathParams);
+            let typeTemplates={
+                "11":"1-1.src._index.mjs_.ejs",
+                "12":"1-2.src._index.mjs_2.ejs",
+                "21":"2-1.src._index.core.mjs_.ejs",
+                "22":"2-2.src._index.core.mjs_2.ejs",
+                "31":"3-1.dist._acroml.js_.ejs",
+                "32":"3-2.dist._acroml.js_2.ejs",
+                "33":"3-3.dist._acroml.js_3.ejs",
+                "34":"3-4.dist._acroml.js_4.ejs",
+                "41":"4-1.dist._acroml-core.js_.ejs",
+                "42":"4-2.dist._acroml-core.js_2.ejs",
+            }
+            let type=pathParams['type'];
+            for(let id in typeTemplates){
+                if (id==type){%>
+                    <option value="<%-id%>" selected><%-typeTemplates[id]%></option>
+                <%} else {%>
+                    <option value="<%-id%>"><%-typeTemplates[id]%></option>
+                <%}%>
+            <%}
+        %>
+        </select>
+        <%-partial(typeTemplates[type])%>
+        <script>
+            console.log("<%-typeTemplates[type]%>");
+            function onCodeTemplateChanged(e){
+                console.log(e);
+                console.log(e.value);
+                let p='/html/demo/'+e.value;
+                location.href=p;
+            }
+        </script>
+        <div>
+            <img src="/img/acroML.gif"/>
+        </div>
+        <a href="/">Home</a>
+        <h1>Demo:translate at frontend browser,translate anything</h1>
+        <div style="text-align: right;">
+            <span>Language:</span><lang id="languageSelector"></lang>
+        </div>
+        
+        <script>
+            function button_click(){
+                let text=AcroML.browserEngine.getDisplayValue('AlternateText');
+                console.log(text);
+                $("#button_trans").val(text);
+            }
+        </script>
+        <div style="width:25%;float:left;" title="aaa">
+            <fieldset>
+                <legend>a</legend>
+                <a>&File</a><br/>
+                <a href="http://www.csdn.net"><i>&View</i></a>
+            </fieldset>
+            <fieldset>
+                <legend>span</legend>
+                <span>&File</span><br/>
+            </fieldset>
+            <fieldset>
+                <legend>input</legend>
+                <input type="text" placeholder="&File"></input><br/>
+                <input type="button" value="&File" onclick="button_click()" id="button_trans"></input><br/>
+                <input type="checkbox" value="&File"><span>&Edit</span></input><br/>
+                <input type="radio" value="&File"><span>&Edit</span></input><br/>
+                <input type="submit" value="&File"></input><br/>
+                <input type="file" alt="&Edit" title="View"></input><br/>
+                <input type="month" ></input><br/>
+                <input type="week" ></input><br/>
+            </fieldset>
+            <fieldset>
+                <legend>select</legend>
+                <select name="cars">
+                    <option value="volvo">&Edit</option>
+                    <option value="saab">&File</option>
+                    <option value="fiat">&View</option>
+                    <option value="audi">&About</option>
+                </select>
+            </fieldset>
+        </div>
+        <div style="width:25%;float:left;">
+            <fieldset>
+                <legend>button</legend>
+                <button>&File</button><br/>
+            </fieldset>
+            <fieldset>
+                <legend>div</legend>
+                <div>&File</div><br/>
+                <div><span>&File</span></div><br/>
+                <div>&Edit<span>&File</span></div><br/>
+            </fieldset>
+            <fieldset>
+                <legend>textarea</legend>
+                <textarea placeholder="&View"></textarea><br/>
+            </fieldset>
+            <fieldset>
+                <legend>label</legend>
+                <label value="aaa">&File</label><br/>
+            </fieldset>   
+        </div>
+        <div style="width:25%;float:left;">
+            <fieldset>
+                <legend>i-b-strong-mark-s-del</legend>
+                <i>&View</i>
+                <i><span>&Edit</span></i>
+                <b>&View</b>
+                <strong>&View</strong>
+                <mark>&View</mark>
+                <s>&View</s>
+                <del>&View</del>
+            </fieldset>
+            <fieldset>
+                <legend>fieldset</legend>
+                <fieldset>
+                    <legend>&View</legend>
+                    <div class="box_a">
+                        <label for="uName">&Edit</label><input class="text_a" id="uName" type="text">
+                    </div>
+                    <div class="box_a">
+                        <label for="uPassword">&File</label><input class="text_a" id="uPassword" type="text">
+                    </div>
+                    <div class="box_a">
+                        <input id="uTrue" type="checkbox"><label for="uTrue">&About</label>
+                    </div>
+                </fieldset>
+            </fieldset>
+            <fieldset>
+                <legend>table</legend>
+                <table border="1">
+                    <caption>&View</caption>
+                    <tr>
+                        <th>&Edit</th>
+                        <th>&File</th>
+                    </tr>
+                    <tr>
+                        <td>&Edit</td>
+                        <td>&File</td>
+                    </tr>
+                </table>
+            </fieldset>
+        
+        </div>
+        <div style="width:25%;float:left;">
+            <fieldset>
+                <legend>p</legend>
+                <p>&Edit</p><br/>
+            </fieldset>
+            <fieldset>
+                <legend>pre</legend>
+                <p>&Edit</p><br/>
+            </fieldset>
+            <fieldset>
+                <legend>h1</legend>
+                <h1>&File</h1><br/>
+            </fieldset>
+        </div>
+    </body>
+</html>

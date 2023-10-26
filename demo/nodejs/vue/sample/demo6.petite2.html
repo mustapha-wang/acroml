@@ -1,0 +1,14 @@
+<script src="/js/petite-vue-0.4.1/dist/petite-vue.umd.js"></script>
+
+<div id="app" v-scope="data()">{{ message }}</div>
+
+<script>
+  const { createApp } = PetiteVue;
+  createApp({
+    data() {
+      return {
+        message: 'Hello Petite Vue!'
+      }
+    }
+  }).mount('#app')
+</script>

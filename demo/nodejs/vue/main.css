@@ -1,0 +1,78 @@
+* {
+  /* font-family: "微软雅黑", "Calibri", "Verdana", "Arial", "宋体"; */
+  /* font-size: 14px; */
+}
+/* 修正treegrid cell字体大小 */
+a{
+  font-size: 14px;
+}
+span{
+  font-size: 14px;
+}
+.datagrid-cell{
+  font-size: 14px;
+}
+/* 修正treegrid cell编辑框高度 */
+.datagrid-editable{
+  height: 31px;
+}
+.icon-t2s{
+  background-image:url('/img/AllDDIcon.png');
+  background-position: -80px -16px;
+}
+.icon-s2t{
+  background-image:url('/img/AllDDIcon.png');
+  background-position: -64px -16px;
+}
+.icon-addLang{
+  background-image:url('/img/AllDDIcon.png');
+  background-position: -16px -32px;
+}
+.icon-addSibling{
+  background-image:url('/img/AllDDIcon.png');
+  background-position: -112px -32px;
+}
+.icon-addChild{
+  background-image:url('/img/AllDDIcon.png');
+  background-position: -96px -32px;
+}
+.icon-open{
+  background-image:url('/img/AllDDIcon.png');
+  background-position: 0px 0px;
+}
+.icon-import{
+  background-image:url('/img/AllDDIcon.png');
+  background-position: -16px -48px;
+}
+.icon-grab{
+  background-image:url('/img/AllDDIcon.png');
+  background-position: -96px -64px;
+}
+.icon-new{
+  background-image:url('/img/AllDDIcon.png');
+  background-position: -32px -16px;
+}
+.icon-expand{
+  background-image:url('/img/AllDDIcon.png');
+  background-position: -32px -96px;
+}
+.icon-collapse{
+  background-image:url('/img/AllDDIcon.png');
+  background-position: -16px -96px;
+}
+.icon-move{
+  background-image:url('/img/AllDDIcon.png');
+  background-position: -32px -80px;
+}
+.icon-saveTG{
+  background-image:url('/img/saveTG.png');
+}
+.icon-savePT{
+  background-image:url('/img/savePT.png');
+}
+.icon-saveCSV{
+  background-image:url('/img/saveCSV.png');
+}
+.icon-saveLNG{
+  background-image:url('/img/saveLNG.png');
+}

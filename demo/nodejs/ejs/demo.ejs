@@ -1,0 +1,165 @@
+<html>
+<header>
+
+</header>
+<head>
+    <title><%=AcroML.t("&View")%></title>
+    <meta charset="utf-8"></meta>
+    <script src="/js/jquery-1.11.1/jquery-1.11.1.min.js"></script>
+</head>
+
+<script>
+    console.log(document.cookie);
+    function onLanguageChange(e){
+        //console.log(e);
+        let LCID=$(e).val();
+        console.log(LCID);
+        document.cookie='LCID='+LCID;
+        
+        //localStorage.setItem('LCID',LCID);
+        window.location.reload();
+    }
+    console.log('<%=AcroML.LCID%>')
+</script>
+<body>
+    <div>
+        <img src="/img/AcroML.gif"/>
+    </div>
+    <a href="/">Home</a>
+    <h1><%=AcroML.t('Demo:translate at backend,when nodejs render ejs file')%></h1>
+    <div style="text-align: right;">
+        <span><%=AcroML.t('Language:')%></span>
+        <%
+            let langs=[];
+            let isFoundEnglish=false;
+            for(let LCID2 in AcroML.dd.LCIDList){
+                if (LCID2==1033) isFoundEnglish=true;
+                let lang=AcroML.culture.findCultureByLCID(LCID2);
+                langs.push(lang);
+            }
+            if (!isFoundEnglish){
+                let lang=AcroML.culture.findCultureByLCID(1033);
+                langs.unshift(lang);
+            }
+        %>
+        <select id="combobox_lang" value="<%=AcroML.LCID%>" onChange="onLanguageChange(this)">
+            <% 
+            for(let i=0;i<langs.length;i++){
+                let lang=langs[i];
+                if(lang.LCID==AcroML.LCID){%>
+                  <option value="<%=lang.LCID%>" selected><%=lang.LCID+','+lang.LanguageName_Native+','+lang.RegionName_Native%></option>
+                <%}else{%>
+                  <option value="<%=lang.LCID%>"><%=lang.LCID+','+lang.LanguageName_Native+','+lang.RegionName_Native%></option>
+               <%}
+            }
+            %>
+        </select>
+    </div>
+    <div style="width:25%;float:left;" title="aaa">
+        <fieldset>
+            <legend>a</legend>
+            <a><%=AcroML.t("&File")%></a><br/>
+            <a href="http://www.csdn.net"><i><%=AcroML.t("&View")%></i></a>
+        </fieldset>
+        <fieldset>
+            <legend>span</legend>
+            <span><%=AcroML.t("&File")%></span><br/>
+        </fieldset>
+        <fieldset>
+            <legend>input</legend>
+            <input type="text" placeholder="<%=AcroML.t('&File')%>"></input><br/>
+            <input type="button" value="<%=AcroML.t('&File')%>"></input><br/>
+            <input type="checkbox" value="&File"><span><%=AcroML.t('&Edit')%></span></input><br/>
+            <input type="radio" value="&File"><span><%=AcroML.t('&Edit')%></span></input><br/>
+            <input type="submit" value="<%=AcroML.t('&File')%>"></input><br/>
+            <input type="file" alt="&Edit" title="View"></input><br/>
+            <input type="month" ></input><br/>
+            <input type="week" ></input><br/>
+        </fieldset>
+        <fieldset>
+            <legend>select</legend>
+            <select name="cars">
+                <option value="volvo"><%=AcroML.t('&Edit')%></option>
+                <option value="saab"><%=AcroML.t('&File')%></option>
+                <option value="fiat"><%=AcroML.t('&View')%></option>
+                <option value="audi"><%=AcroML.t('&About')%></option>
+            </select>
+        </fieldset>
+    </div>
+    <div style="width:25%;float:left;">
+        <fieldset>
+            <legend>button</legend>
+            <button><%=AcroML.t('&File')%></button><br/>
+        </fieldset>
+        <fieldset>
+            <legend>div</legend>
+            <div><%=AcroML.t('&File')%></div><br/>
+            <div><span><%=AcroML.t('&File')%></span></div><br/>
+            <div><%=AcroML.t('&Edit')%><span><%=AcroML.t('&File')%></span></div><br/>
+        </fieldset>
+        <fieldset>
+            <legend>textarea</legend>
+            <textarea placeholder="<%=AcroML.t('&View')%>"></textarea><br/>
+        </fieldset>
+        <fieldset>
+            <legend>label</legend>
+            <label value="aaa"><%=AcroML.t('&File')%></label><br/>
+        </fieldset>   
+    </div>
+    <div style="width:25%;float:left;">
+        <fieldset>
+            <legend>i-b-strong-mark-s-del</legend>
+            <i><%=AcroML.t('&View')%></i>
+            <i><span><%=AcroML.t('&Edit')%></span></i>
+            <b><%=AcroML.t('&View')%></b>
+            <strong><%=AcroML.t('&View')%></strong>
+            <mark><%=AcroML.t('&View')%></mark>
+            <s><%=AcroML.t('&View')%></s>
+            <del><%=AcroML.t('&View')%></del>
+        </fieldset>
+        <fieldset>
+            <legend>fieldset</legend>
+            <fieldset>
+                <legend>&View</legend>
+                <div class="box_a">
+                    <label for="uName"><%=AcroML.t('&Edit')%></label><input class="text_a" id="uName" type="text">
+                </div>
+                <div class="box_a">
+                    <label for="uPassword"><%=AcroML.t('&File')%></label><input class="text_a" id="uPassword" type="text">
+                </div>
+                <div class="box_a">
+                    <input id="uTrue" type="checkbox"><label for="uTrue"><%=AcroML.t('&About')%></label>
+                </div>
+            </fieldset>
+        </fieldset>
+        <fieldset>
+            <legend>table</legend>
+            <table border="1">
+                <caption><%=AcroML.t('&View')%></caption>
+                <tr>
+                    <th><%=AcroML.t('&Edit')%></th>
+                    <th><%=AcroML.t('&File')%></th>
+                </tr>
+                <tr>
+                    <td><%=AcroML.t('&Edit')%></td>
+                    <td><%=AcroML.t('&File')%></td>
+                </tr>
+            </table>
+        </fieldset>
+    </div>
+    <div style="width:25%;float:left;">
+        <fieldset>
+            <legend>p</legend>
+            <p><%=AcroML.t('&Edit')%></p><br/>
+        </fieldset>
+        <fieldset>
+            <legend>pre</legend>
+            <p><%=AcroML.t('&Edit')%></p><br/>
+        </fieldset>
+        <fieldset>
+            <legend>h1</legend>
+            <h1><%=AcroML.t('&File')%></h1><br/>
+        </fieldset>
+    </div>
+</body>
+</html>

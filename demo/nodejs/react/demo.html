@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Acro Multi-Lang Demo</title>
+    <script src="/js/jquery-1.11.1/jquery-1.11.1.min.js"></script>
+    <script src="/js/acroml/dist/global/acroml.js"></script>
+    <script type="importmap">
+      {
+        "imports": {
+          "react": "/js/react-18.1.0/react.development.js",
+          "easyui":"/js/rc-easyui-1.2.9/dist/rc-easyui-min.js"
+        }
+      }
+    </script>
+    <style>
+      @import '/js/rc-easyui-1.2.9/dist/themes/default/easyui.css';
+      @import '/js/rc-easyui-1.2.9/dist/themes/icon.css';
+      @import '/js/rc-easyui-1.2.9/dist/themes/react.css';
+    </style>
+  </head>
+  <body>
+    <div>
+      <img src="/img/acroML.gif"/>
+    </div>
+    <div id="div_root"></div>
+    <script src="/js/react-18.1.0/react.development.js"></script>
+    <script src="/js/react-18.1.0/react-dom.development.js"></script>
+    <script src="/js/babel-7.17.11/babel.min.js"></script>
+    <script src="./util.require.js"></script>
+    <script>
+      // console.log(require.cache);
+      // console.log(ReactDOM.isSimpleFunctionComponent);
+    </script>
+    <script type="text/babel">
+      import Com_Root from './com.root.jsx';
+      let com_root,el_root,div_root;
+      function render_root(){
+        if (!com_root){
+          div_root =document.getElementById('div_root');
+          com_root = ReactDOM.createRoot(div_root);
+        }
+        el_root=React.createElement(Com_Root);
+        com_root.render(el_root);
+      } 
+    </script>
+    <script>
+      function start(){
+        window.t=AcroML.t;
+        render_root();
+        AcroML.Engine.onSwitchLanguage=function(){
+          render_root();
+        }
+      }
+      //console.log('build dd...');
+      AcroML.Engine.init({
+        engineClass:AcroML.BrowserEngine,
+        ddFile:'/dd/Unicode.plaintable.json'
+      }).then(start);
+    </script>
+  </body>
+</html>
